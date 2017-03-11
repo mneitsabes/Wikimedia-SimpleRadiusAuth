@@ -1,0 +1,38 @@
+{
+  "name": "SimpleRadiusAuth",
+  "version": "0.1",
+  "author": [
+    "Sébastien"
+  ],
+  "url": "https://www.mediawiki.org/wiki/Extension:SimpleRadiusAuth",
+  "descriptionmsg": "simpleradiusauth-desc",
+  "license-name": "GPL-2.0+",
+  "type": "other",
+  "AutoloadClasses": {
+    "SimpleRadiusAuthProvider": "SimpleRadiusAuthProvider.php"
+  },
+  "config": {
+    "SimpleRadiusAuthServer": null,
+    "SimpleRadiusAuthSecret": null,
+    "SimpleRadiusAuthPort": 1812,
+    "SimpleRadiusAuthTimeout": 5,
+    "SimpleRadiusAuthMaxTries": 3,
+    "SimpleRadiusAuthTest": null
+  },
+  "MessagesDirs": {
+    "SimpleRadiusAuth": [
+      "i18n"
+    ]
+  },
+  "AuthManagerAutoConfig": {
+    "primaryauth": {
+      "SimpleRadiusAuthProvider": {
+        "class": "SimpleRadiusAuthProvider"
+      }
+    }
+  },
+  "requires": {
+    "MediaWiki": ">= 1.27.0"
+  },
+  "manifest_version": 1
+}
