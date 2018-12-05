@@ -57,7 +57,7 @@ class SimpleRadiusAuthProvider extends \MediaWiki\Auth\AbstractPasswordPrimaryAu
      * @return AuthenticationResponse
      */
     public function beginPrimaryAuthentication(array $reqs) {
-        global $wgSimpleRadiusAuthServer, $wgSimpleRadiusAuthPort, $wgSimpleRadiusAuthSecret, $wgSimpleRadiusAuthTimeout, $wgSimpleRadiusAuthMaxTries;
+        global $wgSimpleRadiusAuthServer, $wgSimpleRadiusAuthPort, $wgSimpleRadiusAuthSecret, $wgSimpleRadiusAuthTimeout, $wgSimpleRadiusAuthMaxTries, $wsSimpleRadiusAuthIdentifier;
 
         // Check if the username and password are defined
         $req = AuthenticationRequest::getRequestByClass( $reqs, PasswordAuthenticationRequest::class );
@@ -82,6 +82,12 @@ class SimpleRadiusAuthProvider extends \MediaWiki\Auth\AbstractPasswordPrimaryAu
         radius_create_request( $radius, RADIUS_ACCESS_REQUEST );
         radius_put_attr( $radius, RADIUS_USER_NAME, strtolower( $username ) );
         radius_put_attr( $radius, RADIUS_USER_PASSWORD, $req->password );
+
+        if ( empty($wsSimpleRadiusAuthIdentifier) ) {
+            $wsSimpleRadiusAuthIdentifier = gethostname();
+        }
+
+        radius_put_attr( $radius, RADIUS_NAS_IDENTIFIER, $wsSimpleRadiusAuthIdentifier );
 
         // If RADIUS accept the credentials, we're good to go
         if( radius_send_request( $radius ) == RADIUS_ACCESS_ACCEPT )
