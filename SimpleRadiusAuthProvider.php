@@ -3,6 +3,7 @@ use MediaWiki\Auth\AuthenticationRequest;
 use MediaWiki\Auth\PasswordAuthenticationRequest;
 use MediaWiki\Auth\AuthenticationResponse;
 use MediaWiki\Auth\AuthManager;
+use MediaWiki\User\UserNameUtils;
 
 /**
  * Provide a simple RADIUS Primary Authentification Provider.
@@ -65,7 +66,7 @@ class SimpleRadiusAuthProvider extends \MediaWiki\Auth\AbstractPasswordPrimaryAu
             return AuthenticationResponse::newAbstain();
         }
 
-        $username = User::getCanonicalName( $req->username, 'usable' );
+        $username = $this->userNameUtils->getCanonical( $req->username, UserNameUtils::RIGOR_USABLE );
         if ( $username === false ) {
             return AuthenticationResponse::newAbstain();
         }

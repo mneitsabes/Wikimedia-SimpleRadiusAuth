@@ -1,23 +1,24 @@
 These is the readme file for the Simple Radius Authentification Provider extension.
 
-== About ==
+## About
 
 SimpleRadiusAuth is an extension that queries a RADIUS server to authenticate users.
 
-Visitors can not create an account and users can not change their password.
-It's based on Wikimedia 1.27 changes like AuthManager and *PrimaryAuthenticationProvider so it doesn't have backward compatibility with older versions.
+Visitors cannot create an account and users cannot change their password.
 
-=== Requirements ==
+It's based on Wikimedia 1.35 changes like AuthManager, *PrimaryAuthenticationProvider, UserNameUtils so it doesn't have backward compatibility with older versions.
+
+### Requirements
 
 - You must have a RADIUS service running somewhere accessible from the Wiki server.
-- You must use Wikimedia 1.27 or later
-- You must have the PHP RADIUS extension (see http://php.net/manual/en/book.radius.php)
+- You must use Wikimedia 1.35 or later (test with 1.38.2)
+- You must have the [PHP RADIUS](http://php.net/manual/en/book.radius.php) extension
 
-=== Usage ===
+### Usage
 
 1. Put the SimpleRadiusAuth in the extensions directory
 2. Edit your LocalSettings.php file and add :
-
+```
   // Load SimpleRadiusAuth
   wfLoadExtension( 'SimpleRadiusAuth' );
   $wgSimpleRadiusAuthServer = "IP_OR_DNSNAME_OF_RADIUS_SERVER";
@@ -25,10 +26,10 @@ It's based on Wikimedia 1.27 changes like AuthManager and *PrimaryAuthentication
 
   // Disable account creation
   $wgGroupPermissions['*']['createaccount'] = false;
-
+```
 3. That's all !
 
-=== Config ===
+### Config
 
 $wgSimpleRadiusAuthServer : the hostname parameter specifies the server host, either as a fully qualified domain name or as a dotted-quad IP address in text form.
 
